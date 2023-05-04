@@ -9,3 +9,7 @@ __pycache__
 !data/README.md
 !models/README.md
 !outputs/README.md
+
+
+**/.ipynb_checkpoints
+output

@@ -20,9 +20,13 @@ RUN apt update && apt install --no-install-recommends -y software-properties-com
 RUN add-apt-repository ppa:deadsnakes/ppa
 
 RUN apt update && apt install --no-install-recommends -y \
-    git curl make ssh openssh-client \
+    git curl make ssh openssh-client fish\
     python${PYTHON_VERSION} python3-pip python-is-python3
-    
+
+RUN add-apt-repository ppa:tomtomtom/yt-dlp \
+    && apt update \
+    && apt install -y yt-dlp
+
 # Following is needed to swtich default python3 version
 # For detail, please check following link https://unix.stackexchange.com/questions/410579/change-the-python3-default-version-in-ubuntu
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 1 \
