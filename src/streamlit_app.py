@@ -1,6 +1,7 @@
 # %%
 from __future__ import annotations
 import sys
+import shutil
 from contextlib import contextmanager, redirect_stdout
 from io import StringIO
 from time import sleep
@@ -13,7 +14,8 @@ import subprocess
 from pathlib import Path
 from IPython.display import Audio
 import streamlit as st
-import redirect as rd
+
+# import redirect as rd
 import demucs.separate
 
 
@@ -176,13 +178,21 @@ if go_button:
     # show separated audio
     separated_filename = ["vocals", "drums", "bass", "other"]
     separated_filepath = []
+    song_dir = Path(cfg.output_dir) / cfg.model / cfg.song_name
     for f in separated_filename:
-        separated_filepath.append(
-            Path(cfg.output_dir) / cfg.model / cfg.song_name / (f + ".mp3")
-        )
+        separated_filepath.append(song_dir / (f + ".mp3"))
     for f in separated_filepath:
         st.write(f"{f.stem}")
         st.audio(f.resolve().as_posix())
+    # zip and download
+    shutil.make_archive(song_dir.parent / cfg.song_name, "zip", song_dir)
+    with open(song_dir.parent / (cfg.song_name + ".zip"), "rb") as f:
+        st.download_button(
+            label=f"Download Separated Audio as `{cfg.song_name}.zip`",
+            data=f,
+            file_name=f"{cfg.song_name}.zip",
+            mime="application/zip",
+        )
 
 else:
     st.info("Click the button above to start separation.")
