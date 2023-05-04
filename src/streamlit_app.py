@@ -29,18 +29,6 @@ def save_uploadedfile(
     return save_path
 
 
-def run_command(command):
-    process = subprocess.Popen(command, stdout=subprocess.PIPE)
-    while True:
-        output = process.stdout.readline()
-        if output == "" and process.poll() is not None:
-            break
-        if output:
-            print(output.strip())
-    rc = process.poll()
-    return rc
-
-
 @contextmanager
 def st_redirect(src, dst):
     placeholder = st.empty()
@@ -87,7 +75,7 @@ st.sidebar.title("Settings")
 
 # %%
 # default config
-song_path = Path("../data/shining_star_short.mp3")
+song_path = Path("../data/shining_star_shortest.mp3")
 
 
 class CFG:
@@ -100,16 +88,45 @@ class CFG:
 
 
 cfg = CFG()
+
+# Settings
+st.sidebar.warning("**Don't change these settings while running.**")
+# reference
+st.sidebar.markdown(
+    "Please refer to the following links for the meaning of each setting. [Code](https://github.com/facebookresearch/demucs/blob/8b48c27f82b0e119c91c613eee2ce87ba28575a0/demucs/separate.py#L53), [Readme](https://github.com/facebookresearch/demucs/#separating-tracks)"
+)
+
+cfg.model = st.sidebar.selectbox(
+    "Model",
+    ["htdemucs", "htdemucs_ft", "mdx_extra", "mdx_extra_q"],
+)
+cfg.overlap = st.sidebar.slider(
+    "--overlap (It can probably be reduced to 0.1 to improve a bit speed)",
+    0.1,
+    0.3,
+    0.1,
+    0.01,
+)
+cfg.clip_mode = st.sidebar.selectbox("--clip-mode", ["rescale", "clamp"])
+cfg.shifts = st.sidebar.slider(
+    "--shifts (This makes prediction `--shift` times slower. A little more accurate)",
+    1,
+    10,
+    1,
+    1,
+)
+
 # %%
 # upload audio file
 
 st.markdown("### Upload Audio")
 uploaded_file = st.file_uploader(
     "Choose an audio file",
-    type=["mp3", "wav"],
+    type=[
+        "mp3",
+    ],
 )
 
-# with NamedTemporaryFile(dir="../data", type=)
 if uploaded_file is not None:
     saved_path = save_uploadedfile(uploaded_file, cfg.data_dir)
     cfg.song_name = saved_path.stem
@@ -127,10 +144,12 @@ cmd = [
     "-n",
     cfg.model,
     "--overlap",
-    "0.1",
+    str(cfg.overlap),
     # "--two-stems","vocals",
     "--clip-mode",
-    "clamp",
+    cfg.clip_mode,
+    "--shifts",
+    str(cfg.shifts),
     "--mp3",
     "--mp3-bitrate",
     "192",
