@@ -812,9 +812,8 @@ description = "Music source separation in the waveform domain."
 category = "main"
 optional = false
 python-versions = ">=3.7.0"
-files = [
-    {file = "demucs-4.0.0.tar.gz", hash = "sha256:c059959da1e226ffa8023093917ef2a8e3c8a87686a58ea09833d8751985e977"},
-]
+files = []
+develop = false
 
 [package.dependencies]
 diffq = ">=0.2.1"
@@ -830,6 +829,12 @@ tqdm = "*"
 
 [package.extras]
 dev = ["diffq (>=0.2.1)", "dora-search", "einops", "flake8", "hydra-colorlog (>=1.1)", "hydra-core (>=1.1)", "julius (>=0.2.3)", "lameenc (>=1.2)", "museval", "mypy", "openunmix", "pyyaml", "soundfile (>=0.10.3)", "submitit", "torch (>=1.8.1)", "torchaudio (>=0.8)", "tqdm", "treetable"]
+
+[package.source]
+type = "git"
+url = "https://github.com/facebookresearch/demucs"
+reference = "HEAD"
+resolved_reference = "8b48c27f82b0e119c91c613eee2ce87ba28575a0"
 
 [[package]]
 name = "diffq"
@@ -4347,4 +4352,4 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "42cc5ba922ca9e0d2cbd0455f72c2a0d56a01ef7ed8de80593d82fc2401b6003"
+content-hash = "42b036c611830857fba454cea269d44e101ff0178c3e27f4a643cc6f8a268706"

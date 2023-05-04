@@ -33,7 +33,7 @@ pandas = "^2.0.1"
 joblib = "^1.2.0"
 tqdm = "^4.65.0"
 dora-search = "^0.1.11"
-demucs = "^4.0.0"
+demucs = {git = "https://github.com/facebookresearch/demucs"}
 streamlit = "<1.22.0"
 
 [tool.poetry.group.dev.dependencies]
