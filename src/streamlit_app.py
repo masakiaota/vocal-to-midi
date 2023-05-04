@@ -196,3 +196,7 @@ if go_button:
 
 else:
     st.info("Click the button above to start separation.")
+
+
+# TODO 処理済みであれば初期化されないようにする
+# TODO 明示的な初期化ボタン作成
