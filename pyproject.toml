@@ -32,10 +32,11 @@ tqdm = "^4.65.0"
 dora-search = "^0.1.11"
 demucs = {git = "https://github.com/facebookresearch/demucs"}
 streamlit = "<1.22.0"
-basic-pitch = "^0.2.4"
 polars = "<0.17.11"
 essentia = "^2.1b6.dev1034"
 matplotlib = "<3.7.1"
+basic-pitch = "^0.2.4"
+keras = ">=2.6.0,<2.7.0"
 
 [tool.poetry.group.dev.dependencies]
 isort = "^5.10.1"
