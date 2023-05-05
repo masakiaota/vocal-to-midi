@@ -34,6 +34,7 @@ demucs = {git = "https://github.com/facebookresearch/demucs"}
 streamlit = "<1.22.0"
 basic-pitch = "^0.2.4"
 polars = "<0.17.11"
+essentia = "^2.1b6.dev1034"
 
 [tool.poetry.group.dev.dependencies]
 isort = "^5.10.1"

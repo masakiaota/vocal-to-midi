@@ -1012,6 +1012,33 @@ files = [
 ]
 
 [[package]]
+name = "essentia"
+version = "2.1b6.dev1034"
+description = "Library for audio and music analysis, description and synthesis"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "essentia-2.1b6.dev1034-cp310-cp310-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:da3d16551639c966699cd946b1302a1212a4aafc8753d2ba1f7f44279ee753df"},
+    {file = "essentia-2.1b6.dev1034-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6c3ac9a16128b153cd18e65c51802f71f9e40661527c44a96030e9b9beb206d3"},
+    {file = "essentia-2.1b6.dev1034-cp311-cp311-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:430d94032e074d9c45e60a92d8ea76e4ae5b1d791b2cf816a6cdad256dc67972"},
+    {file = "essentia-2.1b6.dev1034-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:417f5dd441ec17c2f079d18d671affbb71e4993db80b8a8cf58a13bddb1b896b"},
+    {file = "essentia-2.1b6.dev1034-cp36-cp36m-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:4bded88026feb860227126484cabfb8dbc5dcc3791f50a2af14175c78e73209e"},
+    {file = "essentia-2.1b6.dev1034-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6c5b490822d413bffb65a9a5a3f19a9ba6095d9da28045ac34e6af57fa421508"},
+    {file = "essentia-2.1b6.dev1034-cp37-cp37m-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:500db14d7781a8533521833ecbe508f4c142f071764c0ffe26fc519f88d2f75e"},
+    {file = "essentia-2.1b6.dev1034-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:56975de212085c8ac567335d2cc6d4cf64a30a9acbc242028252f03d05a8def7"},
+    {file = "essentia-2.1b6.dev1034-cp38-cp38-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:284b13913e027a5bae4c1bab8c1e3ae466d35e9b526ca458ac18260a753c6fd8"},
+    {file = "essentia-2.1b6.dev1034-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9c429257bee71cadd9a8446c7bab4cc8bcb523a438e278c27f839106b1245bc9"},
+    {file = "essentia-2.1b6.dev1034-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:eae9144a14e72578b3494649efe0543a811f83bc83b6c54fe4e889f000e2d038"},
+    {file = "essentia-2.1b6.dev1034-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6334d82f3adfcd337d287be98fde48f7f4df98ce02fd962c6e47503fa864bc5d"},
+]
+
+[package.dependencies]
+numpy = ">=1.8.2"
+pyyaml = "*"
+six = "*"
+
+[[package]]
 name = "exceptiongroup"
 version = "1.1.1"
 description = "Backport of PEP 654 (exception groups)"
@@ -5360,4 +5387,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "bc4b0c354db47241d5b6663ab15e77f3530a6f0f354ee14e5e923e715259f01e"
+content-hash = "d7ad68f06d68ae096d319f7a6cc16c544b2628af254dc4f929da89d5a0885f8f"
