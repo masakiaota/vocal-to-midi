@@ -73,6 +73,8 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 st.title("README")
+# multipageだとしても、実行はこのスクリプトを実行したディクレクトリ起点となる
+# __file__で固定してしまってもいいかも
 
 st.markdown("説明をここにダラダラと書くつもり")
 # st.sidebar.title("Settings")

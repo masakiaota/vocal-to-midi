@@ -77,14 +77,15 @@ st.sidebar.title("Settings")
 
 # %%
 # default config
-song_path = Path("../data/shining_star_shortest.mp3")
+dir_of_this_file = Path(__file__).parent.resolve()
+song_path = (dir_of_this_file / "../../data/shining_star_shortest.mp3").resolve()
 
 
 class CFG:
     song_name = song_path.stem
     input_file = song_path.resolve().as_posix()  # path traversalされそうな気がするがどうしたら
-    output_dir = "../outputs/"
-    data_dir = "../data/"
+    output_dir = (dir_of_this_file / "../../outputs/").resolve().as_posix()
+    data_dir = (dir_of_this_file / "../../data/").resolve().as_posix()
     model = "htdemucs"
     cpu_count = cpu_count()
 
