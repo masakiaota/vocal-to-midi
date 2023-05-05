@@ -5,7 +5,7 @@ import shutil
 from contextlib import contextmanager, redirect_stdout
 from io import StringIO
 from time import sleep
-from streamlit.runtime.scriptrunner.script_run_context import (
+from streamlit.scriptrunner.script_run_context import (
     SCRIPT_RUN_CONTEXT_ATTR_NAME,
 )
 from threading import current_thread
