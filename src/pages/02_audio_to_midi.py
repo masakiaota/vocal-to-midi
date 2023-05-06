@@ -16,6 +16,8 @@ from IPython.display import Audio
 import streamlit as st
 from basic_pitch.inference import predict_and_save
 
+from roll import MidiFile
+
 
 FREQUENCY_LIST = [int(440 * pow(2, i / 12)) for i in range(-36, 36)]
 
@@ -199,3 +201,8 @@ with open(cfg.midi_path, "rb") as f:
         data=f,
         file_name=f"{cfg.song_name}.mid",
     )
+
+# mid = MidiFile(cfg.midi_path)
+# roll = mid.get_roll()
+# st.pyplot(mid.draw_roll())
+# 微妙だね
