@@ -112,6 +112,7 @@ class CFG:
         "maximum_frequency": 1000,
         "melodia_trick": True,
         "midi_tempo": 158,
+        "sonification_samplerate": 19200,
     }
 
 
@@ -122,16 +123,22 @@ cfg = CFG()
 st.sidebar.warning("**Don't change these settings while running.**")
 # reference
 cfg.basic_pitch_settings["onset_threshold"] = st.sidebar.slider(
-    "onset_threshold", 0.0, 1.0, 0.55
+    "onset_threshold (The model confidence required to create a note.)",
+    0.0,
+    1.0,
+    0.55,
 )
 cfg.basic_pitch_settings["frame_threshold"] = st.sidebar.slider(
-    "frame_threshold", 0.0, 1.0, 0.35
+    "frame_threshold (How easily a note should be split into two.)", 0.0, 1.0, 0.35
 )
 cfg.basic_pitch_settings["minimum_note_length"] = st.sidebar.slider(
-    "minimum_note_length", 0, 500, 50
+    "minimum_note_length (The minimum allowed note length in frames.)",
+    0,
+    500,
+    50,
 )
 freq_min, freq_max = st.sidebar.select_slider(
-    "frequency",
+    "frequency (Minimum and maximum allowed pitch in Hz.)",
     options=FREQUENCY_LIST,
     value=(FREQUENCY_LIST[10], FREQUENCY_LIST[51]),
     format_func=lambda x: f"{x} Hz",
