@@ -95,6 +95,7 @@ class CFG:
     output_dir = (
         dir_of_this_file / "../../outputs/basic-pitch/" / song_path.stem
     ).resolve().as_posix() + "/"
+    midi_path = output_dir + song_path.stem + "_basic_pitch.mid"
     midi_wav_path = output_dir + song_path.stem + "_basic_pitch.wav"
     midi_mp3_path = output_dir + song_path.stem + "_basic_pitch.mp3"
     basic_pitch_settings = {
@@ -121,13 +122,13 @@ cfg = CFG()
 st.sidebar.warning("**Don't change these settings while running.**")
 # reference
 cfg.basic_pitch_settings["onset_threshold"] = st.sidebar.slider(
-    "onset_threshold", 0.0, 1.0, 0.5
+    "onset_threshold", 0.0, 1.0, 0.55
 )
 cfg.basic_pitch_settings["frame_threshold"] = st.sidebar.slider(
-    "frame_threshold", 0.0, 1.0, 0.30
+    "frame_threshold", 0.0, 1.0, 0.35
 )
 cfg.basic_pitch_settings["minimum_note_length"] = st.sidebar.slider(
-    "minimum_note_length", 0, 100, 10
+    "minimum_note_length", 0, 500, 50
 )
 freq_min, freq_max = st.sidebar.select_slider(
     "frequency",
@@ -165,6 +166,7 @@ if uploaded_file is not None:
     ).resolve().as_posix() + "/"
     cfg.midi_wav_path = cfg.output_dir + saved_path.stem + "_basic_pitch.wav"
     cfg.midi_mp3_path = cfg.output_dir + saved_path.stem + "_basic_pitch.mp3"
+    cfg.midi_path = cfg.output_dir + saved_path.stem + "_basic_pitch.mid"
     cfg.basic_pitch_settings["audio_path_list"] = [cfg.input_file]
     cfg.basic_pitch_settings["output_directory"] = cfg.output_dir
 st.write(f"File Preview: {cfg.song_name}")
@@ -178,7 +180,15 @@ st.markdown("## ")
 st.markdown("### Midi Generation")
 with st.spinner("Midi generation in progress..."):
     predict_and_save(**cfg.basic_pitch_settings)
+with st.spinner("Generating preview..."):
     subprocess.run(
         ["ffmpeg", "-i", cfg.midi_wav_path, cfg.midi_mp3_path],
     )
 st.audio(cfg.midi_mp3_path)
+
+with open(cfg.midi_path, "rb") as f:
+    st.download_button(
+        label=f"Download MIDI as `{cfg.song_name}.mid`",
+        data=f,
+        file_name=f"{cfg.song_name}.mid",
+    )
