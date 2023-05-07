@@ -1,5 +1,6 @@
 data/*
 !data/shining_star_shortest.mp3
+!data/shining_star_shortest_vocals.mp3
 models/*
 outputs/*
 __pycache__

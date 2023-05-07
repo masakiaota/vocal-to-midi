@@ -85,7 +85,7 @@ st.sidebar.title("Settings")
 
 # default config
 dir_of_this_file = Path(__file__).parent.resolve()
-song_path = (dir_of_this_file / "../../data/shining_star_short_vocals.mp3").resolve()
+song_path = (dir_of_this_file / "../../data/shining_star_shortest_vocals.mp3").resolve()
 
 
 class CFG:
