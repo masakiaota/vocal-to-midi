@@ -1,27 +1,25 @@
 [tool.poetry]
-name = "ascender"
+name = "vocal-to-midi"
 version = "0.1.0"
-description = "Project template for XCCV group of cvpaper.challenge."
-license = "MIT"
-authors = ["cvpaper.challenge XCCV group"]
-maintainers = ["yoshihiro fukuhara <gatheluck@gmail.com>"]
+description = "streamlit application for audio separation and midi generation"
+license = "Apache License Version 2.0"
+authors = ["Masaki Aota"]
+maintainers = ["masakiaota <aotamasakimail@gmail.com>"]
 readme = "README.md"
 keywords = [
-    "ascender",
     "Python",
-    "projects",
-    "project templates",
-    "project directory",
+    "streamlit",
+    "audio",
+    "separation",
+    "midi",
+    "generation",
+    "music",
 ]
+
 classifiers = [
-    "Development Status :: 4 - Beta",
-    "Environment :: Console",
-    "Environment :: GPU :: NVIDIA CUDA",
-    "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Natural Language :: Japanese",
     "Programming Language :: Python",
-    "Topic :: Software Development",
 ]
 packages = [{include = "vocal-to-midi", from="src"}]
 
