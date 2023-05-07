@@ -1,7 +1,7 @@
 ARG BASE_IMAGE=ubuntu:20.04
 FROM ${BASE_IMAGE}
 
-ARG PROJECT_NAME=audio-to-midi
+ARG PROJECT_NAME=vocal-to-midi
 ARG USER_NAME=challenger
 ARG GROUP_NAME=challengers
 # change this if you want to use your own UID
