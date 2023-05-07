@@ -1,22 +1,21 @@
 # %%
 from __future__ import annotations
-import sys
+
 import shutil
+import subprocess
+import sys
 from contextlib import contextmanager, redirect_stdout
 from io import StringIO
-from time import sleep
-from streamlit.scriptrunner.script_run_context import (
-    SCRIPT_RUN_CONTEXT_ATTR_NAME,
-)
-from threading import current_thread
 from multiprocessing import cpu_count
-import subprocess
 from pathlib import Path
-from IPython.display import Audio
-import streamlit as st
+from threading import current_thread
+from time import sleep
 
 # import redirect as rd
 import demucs.separate
+import streamlit as st
+from IPython.display import Audio
+from streamlit.scriptrunner.script_run_context import SCRIPT_RUN_CONTEXT_ATTR_NAME
 
 
 def save_uploadedfile(

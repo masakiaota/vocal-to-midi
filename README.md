@@ -8,13 +8,10 @@
 [![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
 [![Typing: mypy](https://img.shields.io/badge/typing-mypy-blue)](https://github.com/python/mypy)
 
-
 ## Usage
-
 
 ## How to Development
 
-
 ## License
-Apache License 2.0
 
+Apache License 2.0

@@ -1,13 +1,15 @@
 # %%
 from __future__ import annotations
-import sys
+
 import shutil
-from threading import current_thread
-from multiprocessing import cpu_count
 import subprocess
+import sys
+from multiprocessing import cpu_count
 from pathlib import Path
-from IPython.display import Audio
+from threading import current_thread
+
 import streamlit as st
+from IPython.display import Audio
 
 # %%
 # streamlit settings

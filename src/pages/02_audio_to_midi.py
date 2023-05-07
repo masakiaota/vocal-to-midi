@@ -1,23 +1,22 @@
 # %%
 from __future__ import annotations
-import sys
+
 import shutil
+import subprocess
+import sys
 from contextlib import contextmanager, redirect_stdout
 from io import StringIO
-from time import sleep
-from streamlit.scriptrunner.script_run_context import (
-    SCRIPT_RUN_CONTEXT_ATTR_NAME,
-)
-from threading import current_thread
 from multiprocessing import cpu_count
-import subprocess
 from pathlib import Path
-from IPython.display import Audio
+from threading import current_thread
+from time import sleep
+
 import streamlit as st
 from basic_pitch.inference import predict_and_save
+from IPython.display import Audio
+from streamlit.scriptrunner.script_run_context import SCRIPT_RUN_CONTEXT_ATTR_NAME
 
 from roll import MidiFile
-
 
 FREQUENCY_LIST = [int(440 * pow(2, i / 12)) for i in range(-36, 36)]
 

@@ -49,6 +49,7 @@ jupyterlab = "^3.6.3"
 jupyterlab-git = "^0.41.0"
 mypy = "<1.2.0"
 black = "<22.0.0"
+click = "8.0.4"
 
 [tool.black]
 line-length = 88

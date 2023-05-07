@@ -1,13 +1,12 @@
+import matplotlib as mpl
+import matplotlib.pyplot as plt
 import mido
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib as mpl
 from matplotlib.colors import colorConverter
 
 
 # inherit the origin mido class
 class MidiFile(mido.MidiFile):
-
     def __init__(self, filename):
 
         mido.MidiFile.__init__(self, filename)
@@ -38,7 +37,7 @@ class MidiFile(mido.MidiFile):
                         else:
                             pass
                     except:
-                        print("error",type(msg))
+                        print("error", type(msg))
 
         return events
 
@@ -60,7 +59,6 @@ class MidiFile(mido.MidiFile):
         # use a register array to save the state(program_change) for each channel
         timbre_register = [1 for x in range(16)]
 
-
         for idx, channel in enumerate(events):
 
             time_counter = 0
@@ -81,38 +79,62 @@ class MidiFile(mido.MidiFile):
 
                 if msg.type == "program_change":
                     timbre_register[idx] = msg.program
-                    print("channel", idx, "pc", msg.program, "time", time_counter, "duration", msg.time)
-
-
+                    print(
+                        "channel",
+                        idx,
+                        "pc",
+                        msg.program,
+                        "time",
+                        time_counter,
+                        "duration",
+                        msg.time,
+                    )
 
                 if msg.type == "note_on":
-                    print("on ", msg.note, "time", time_counter, "duration", msg.time, "velocity", msg.velocity)
+                    print(
+                        "on ",
+                        msg.note,
+                        "time",
+                        time_counter,
+                        "duration",
+                        msg.time,
+                        "velocity",
+                        msg.velocity,
+                    )
                     note_on_start_time = time_counter // sr
                     note_on_end_time = (time_counter + msg.time) // sr
                     intensity = volume * msg.velocity // 127
 
-
-
-					# When a note_on event *ends* the note start to be play 
-					# Record end time of note_on event if there is no value in register
-					# When note_off event happens, we fill in the color
+                    # When a note_on event *ends* the note start to be play
+                    # Record end time of note_on event if there is no value in register
+                    # When note_off event happens, we fill in the color
                     if note_register[msg.note] == -1:
-                        note_register[msg.note] = (note_on_end_time,intensity)
+                        note_register[msg.note] = (note_on_end_time, intensity)
                     else:
-					# When note_on event happens again, we also fill in the color
+                        # When note_on event happens again, we also fill in the color
                         old_end_time = note_register[msg.note][0]
                         old_intensity = note_register[msg.note][1]
-                        roll[idx, msg.note, old_end_time: note_on_end_time] = old_intensity
-                        note_register[msg.note] = (note_on_end_time,intensity)
-
+                        roll[
+                            idx, msg.note, old_end_time:note_on_end_time
+                        ] = old_intensity
+                        note_register[msg.note] = (note_on_end_time, intensity)
 
                 if msg.type == "note_off":
-                    print("off", msg.note, "time", time_counter, "duration", msg.time, "velocity", msg.velocity)
+                    print(
+                        "off",
+                        msg.note,
+                        "time",
+                        time_counter,
+                        "duration",
+                        msg.time,
+                        "velocity",
+                        msg.velocity,
+                    )
                     note_off_start_time = time_counter // sr
                     note_off_end_time = (time_counter + msg.time) // sr
                     note_on_end_time = note_register[msg.note][0]
                     intensity = note_register[msg.note][1]
-					# fill in color
+                    # fill in color
                     roll[idx, msg.note, note_on_end_time:note_off_end_time] = intensity
 
                     note_register[msg.note] = -1  # reinitialize register
@@ -142,10 +164,17 @@ class MidiFile(mido.MidiFile):
 
         K = 16
 
-        transparent = colorConverter.to_rgba('black')
-        colors = [mpl.colors.to_rgba(mpl.colors.hsv_to_rgb((i / K, 1, 1)), alpha=1) for i in range(K)]
-        cmaps = [mpl.colors.LinearSegmentedColormap.from_list('my_cmap', [transparent, colors[i]], 128) for i in
-                 range(K)]
+        transparent = colorConverter.to_rgba("black")
+        colors = [
+            mpl.colors.to_rgba(mpl.colors.hsv_to_rgb((i / K, 1, 1)), alpha=1)
+            for i in range(K)
+        ]
+        cmaps = [
+            mpl.colors.LinearSegmentedColormap.from_list(
+                "my_cmap", [transparent, colors[i]], 128
+            )
+            for i in range(K)
+        ]
 
         for i in range(K):
             cmaps[i]._init()  # create the _lut array, with rgba values
@@ -163,14 +192,15 @@ class MidiFile(mido.MidiFile):
 
         for i in range(K):
             try:
-                img = a1.imshow(roll[i], interpolation='nearest', cmap=cmaps[i], aspect='auto')
+                img = a1.imshow(
+                    roll[i], interpolation="nearest", cmap=cmaps[i], aspect="auto"
+                )
                 array.append(img.get_array())
             except IndexError:
                 pass
         return array
 
     def draw_roll(self):
-
 
         roll = self.get_roll()
 
@@ -190,19 +220,32 @@ class MidiFile(mido.MidiFile):
         else:
             x_label_period_sec = second / 10  # ms
         print(x_label_period_sec)
-        x_label_interval = mido.second2tick(x_label_period_sec, self.ticks_per_beat, self.get_tempo()) / self.sr
+        x_label_interval = (
+            mido.second2tick(x_label_period_sec, self.ticks_per_beat, self.get_tempo())
+            / self.sr
+        )
         print(x_label_interval)
-        plt.xticks([int(x * x_label_interval) for x in range(20)], [round(x * x_label_period_sec, 2) for x in range(20)])
+        plt.xticks(
+            [int(x * x_label_interval) for x in range(20)],
+            [round(x * x_label_period_sec, 2) for x in range(20)],
+        )
 
         # change scale and label of y axis
-        plt.yticks([y*16 for y in range(8)], [y*16 for y in range(8)])
+        plt.yticks([y * 16 for y in range(8)], [y * 16 for y in range(8)])
 
         # build colors
         channel_nb = 16
-        transparent = colorConverter.to_rgba('black')
-        colors = [mpl.colors.to_rgba(mpl.colors.hsv_to_rgb((i / channel_nb, 1, 1)), alpha=1) for i in range(channel_nb)]
-        cmaps = [mpl.colors.LinearSegmentedColormap.from_list('my_cmap', [transparent, colors[i]], 128) for i in
-                 range(channel_nb)]
+        transparent = colorConverter.to_rgba("black")
+        colors = [
+            mpl.colors.to_rgba(mpl.colors.hsv_to_rgb((i / channel_nb, 1, 1)), alpha=1)
+            for i in range(channel_nb)
+        ]
+        cmaps = [
+            mpl.colors.LinearSegmentedColormap.from_list(
+                "my_cmap", [transparent, colors[i]], 128
+            )
+            for i in range(channel_nb)
+        ]
 
         # build color maps
         for i in range(channel_nb):
@@ -212,22 +255,29 @@ class MidiFile(mido.MidiFile):
             # create the _lut array, with rgba values
             cmaps[i]._lut[:, -1] = alphas
 
-
         # draw piano roll and stack image on a1
         for i in range(channel_nb):
             try:
-                a1.imshow(roll[i], origin="lower", interpolation='nearest', cmap=cmaps[i], aspect='auto')
+                a1.imshow(
+                    roll[i],
+                    origin="lower",
+                    interpolation="nearest",
+                    cmap=cmaps[i],
+                    aspect="auto",
+                )
             except IndexError:
                 pass
 
         # draw color bar
 
-        colors = [mpl.colors.hsv_to_rgb((i / channel_nb, 1, 1)) for i in range(channel_nb)]
-        cmap = mpl.colors.LinearSegmentedColormap.from_list('my_cmap', colors, 16)
+        colors = [
+            mpl.colors.hsv_to_rgb((i / channel_nb, 1, 1)) for i in range(channel_nb)
+        ]
+        cmap = mpl.colors.LinearSegmentedColormap.from_list("my_cmap", colors, 16)
         a2 = fig.add_axes([0.05, 0.80, 0.9, 0.15])
-        cbar = mpl.colorbar.ColorbarBase(a2, cmap=cmap,
-                                        orientation='horizontal',
-                                        ticks=list(range(16)))
+        cbar = mpl.colorbar.ColorbarBase(
+            a2, cmap=cmap, orientation="horizontal", ticks=list(range(16))
+        )
 
         # show piano roll
         plt.draw()
@@ -260,5 +310,3 @@ if __name__ == "__main__":
 
     # draw piano roll by pyplot
     mid.draw_roll()
-
-
