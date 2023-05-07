@@ -1,4 +1,4 @@
-# Audio to midi
+# Vocal to midi
 
 ![python versions](https://img.shields.io/badge/python-3.8%20%7C%203.9-blue)
 [![MIT License](https://img.shields.io/github/license/cvpaperchallenge/Ascender?color=green)](LICENSE)
