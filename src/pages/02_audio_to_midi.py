@@ -13,7 +13,6 @@ from time import sleep
 
 import streamlit as st
 from basic_pitch.inference import predict_and_save
-from IPython.display import Audio
 from streamlit.scriptrunner.script_run_context import SCRIPT_RUN_CONTEXT_ATTR_NAME
 
 from roll import MidiFile

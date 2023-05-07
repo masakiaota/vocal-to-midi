@@ -9,7 +9,6 @@ from pathlib import Path
 from threading import current_thread
 
 import streamlit as st
-from IPython.display import Audio
 
 # %%
 # streamlit settings
