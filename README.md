@@ -10,8 +10,27 @@
 
 ## Usage
 
+ここにアクセス
+https://audio-to-midi-ezgaeqvxvq-an.a.run.app/
+
+初回起動時遅いです。上記のURLでリロードするとアクセスできたりします。
+`Please wait...`で止まったら一度タブを消して、改めて上記URLでアクセスしてみてください。
+
+### 各ページの説明
+- README
+    - 読んでください。
+- separation
+    - uploadした音声をvocal, bass, drums, otherに分離します。裏では[demucs](https://github.com/facebookresearch/demucs)を使っています。
+- audio to midi
+    - uploadした音声をmidiに変換します。楽器が分離されていたほうがある程度うまくいきます。裏では[basic-pitch](https://github.com/spotify/basic-pitch)を使っています。
+
+
 ## How to Development
+このリポジトリの構造は[Ascender](https://github.com/cvpaperchallenge/Ascender)をテンプレートにしています。
+そのため、利用方法も基本的に同じです。
+
+開発環境の起動方法は上記リポジトリ、または[日本語スライド](https://cvpaperchallenge.github.io/Britannica/ascender/ja/#/1)を参考にしてください。
+
 
 ## License
-
 Apache License 2.0
